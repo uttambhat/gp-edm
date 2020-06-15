@@ -12,7 +12,6 @@ import lib.time_series_to_ml_edm as data_prep
 
 ########## Get data ################
 time_series_data = np.loadtxt("../python_time_series_generators/time_series_data/time_series_04.txt")
-time_series_data = time_series_data[:500]
 
 ########## Normalize time-series values #############
 mean = np.mean(time_series_data)
