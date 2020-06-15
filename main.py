@@ -14,7 +14,7 @@ import generic.plot_array_util as pltarray
 import ml_data_prep.time_series_to_ml_edm as time_series_to_ml_edm
 
 ########## Get data ################
-time_series_data = np.loadtxt("../python_time_series_generators/time_series_data/time_series_02.txt")
+time_series_data = np.loadtxt("../python_time_series_generators/time_series_data/time_series_04.txt")
 time_series_data = time_series_data[:500]
 
 ########## Normalize time-series values #############
@@ -27,16 +27,10 @@ time_series_data_normalized = time_series_data
 
 X_column_list = [0,1]
 y_column_list = [0]
-number_of_delays = 1
+number_of_delays = 2
 test_fraction = 0.5
 
 X_train,y_train,X_test,y_test = time_series_to_ml_edm.prepare(time_series_data_normalized,X_column_list,y_column_list,number_of_delays,test_fraction)
-########## uncomment to linearize Ricker time-series ##################
-X_train=X_train[1:]
-y_train = np.log(y_train[1:]/y_train[:-1])
-X_test = X_test[1:]
-y_test = np.log(y_test[1:]/y_test[:-1])
-
 
 ######### GP specific reshaping data ##############
 

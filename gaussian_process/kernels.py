@@ -11,7 +11,7 @@ from optimizers.rprop import rprop
 import math
 
 class kernel:
-    def __init__(self,alpha=0.5,beta=0.5,v=np.pi/np.sqrt(12.),optimizer="rprop", n_restarts_optimizer=1,epsilon=1.e-5):
+    def __init__(self,alpha=0.5,beta=0.5,v=np.pi/np.sqrt(12.),optimizer="slsqp", n_restarts_optimizer=1,epsilon=1.e-5):
         self.alpha=alpha
         self.beta=beta
         self.v=v
@@ -38,13 +38,13 @@ class kernel:
             sqrt_theta_initial=self.transform_theta(np.hstack([self.Ve,self.tau2,self.phi]))
             print("Restart number: ",i)            
             if self.optimizer=="l_bfgs_b":
-                result=minimize(self.objective_function,sqrt_theta_initial,method='L-BFGS-B',jac=True,bounds=bounds_)
+                result=minimize(self.objective_function,sqrt_theta_initial,method='L-BFGS-B',jac=True)#,bounds=bounds_)
                 #print("hyperparameters: ",result.x,"objective functionn: ",self.objective_function(result.x)[0])
                 arg_results.append(result.x)
                 val_results.append(self.objective_function(result.x)[0])
                 
             elif self.optimizer=="slsqp":
-                result=minimize(self.objective_function,sqrt_theta_initial,method='SLSQP',jac=True,bounds=bounds_)
+                result=minimize(self.objective_function,sqrt_theta_initial,method='SLSQP',jac=True)#,bounds=bounds_)
                 #print("hyperparameters: ",result.x,"objective function: ",self.objective_function(result.x)[0])
                 arg_results.append(result.x)
                 val_results.append(self.objective_function(result.x)[0])
