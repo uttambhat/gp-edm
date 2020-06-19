@@ -1,6 +1,6 @@
 ######### change path according to where you store library files #########
 import sys, os
-sys.path.append(os.path.abspath("..")+"/python_homemade_commons")
+sys.path.append(os.path.abspath("..")+"/python_ml_commons")
 
 import numpy as np
 import matplotlib.pyplot as plt
