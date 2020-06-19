@@ -1,4 +1,7 @@
 ######### change path according to where you store library files #########
+import sys, os
+sys.path.append(os.path.abspath("../..")+"/python_homemade_commons")
+
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -8,20 +11,21 @@ import gaussian_process.kernels as kernels
 import generic.grid as grid
 import generic.normalize as normalize
 import generic.plot_array_util as pltarray
-import lib.time_series_to_ml_edm as data_prep
+import ml_data_prep.time_series_to_ml_edm as data_prep
 
 ########## Get data ################
-time_series_data = np.loadtxt("../python_time_series_generators/time_series_data/time_series_04.txt")
+time_series_data = np.loadtxt("../python_time_series_generators/time_series_data/time_series_02.txt")
 
-########## Normalize time-series values #############
+########## Log and Normalize time-series values #############
+#time_series_data = np.log(time_series_data)
 mean = np.mean(time_series_data)
 stdev = np.sqrt(np.var(time_series_data))
 #time_series_data_normalized = (time_series_data-mean)/stdev
-time_series_data_normalized = time_series_data
+time_series_data_normalized = time_series_data[:1000]
 
 ################## Data preparation ############################
 
-X_column_list = [0,1]
+X_column_list = [0]
 y_column_list = [0]
 number_of_delays = 2
 test_fraction = 0.5
@@ -30,7 +34,7 @@ X_train,y_train,X_test,y_test = data_prep.prepare(time_series_data_normalized,X_
 
 ######### GP specific reshaping data ##############
 
-X = [X_train.reshape(X_train.shape[0],X_train.shape[2]),X_test.reshape(X_test.shape[0],X_test.shape[2])]
+X = [X_train.reshape(X_train.shape[0],X_train.shape[1]*X_train.shape[2]),X_test.reshape(X_test.shape[0],X_test.shape[1]*X_test.shape[2])]
 Y = [y_train.T,y_test.T]
 
 ############# Fit hyper parameters for the kernel #######################

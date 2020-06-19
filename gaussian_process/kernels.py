@@ -11,7 +11,7 @@ from optimizers.rprop import rprop
 import math
 
 class kernel:
-    def __init__(self,alpha=0.5,beta=0.5,v=np.pi/np.sqrt(12.),optimizer="slsqp", n_restarts_optimizer=1,epsilon=1.e-5):
+    def __init__(self,alpha=0.5,beta=0.5,v=np.pi/np.sqrt(12.),optimizer="slsqp", n_restarts_optimizer=10,epsilon=1.e-5):
         self.alpha=alpha
         self.beta=beta
         self.v=v
@@ -44,7 +44,7 @@ class kernel:
                 val_results.append(self.objective_function(result.x)[0])
                 
             elif self.optimizer=="slsqp":
-                result=minimize(self.objective_function,sqrt_theta_initial,method='SLSQP',jac=True)#,bounds=bounds_)
+                result=minimize(self.objective_function,sqrt_theta_initial,method='SLSQP',jac=False)#,bounds=bounds_)
                 #print("hyperparameters: ",result.x,"objective function: ",self.objective_function(result.x)[0])
                 arg_results.append(result.x)
                 val_results.append(self.objective_function(result.x)[0])
@@ -121,7 +121,7 @@ class kernel:
         Kinv=np.linalg.pinv(K)
         value=-self.log_marginal_posterior(K,Kinv,self.y_train,theta_[0],theta_[1],theta_[2:])
         gradient=-self.gradient_log_marginal_posterior(Sigma,K,Kinv,self.y_train,theta_[0],theta_[1],theta_[2:])
-        return value,gradient
+        return value#,gradient
     
     def transform_theta(self,theta):
         return np.sqrt(theta)
