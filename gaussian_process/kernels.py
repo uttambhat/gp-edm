@@ -1,13 +1,10 @@
 ######### change path according to where you store library files #########
-import sys, os
-sys.path.append(os.path.abspath("../..")+"/python_ml_commons")
-
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import minimize
 from scipy.special import gamma
-from optimizers.rprop import rprop
+from lib.rprop import rprop
 import math
 
 class kernel:
