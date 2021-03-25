@@ -22,15 +22,8 @@ x_train,y_train,x_test,y_test = edm.construct(data,x_columns,y_columns,number_of
 model = gp.gaussian_process_regressor(kernel='sq_exp',optimizer='fmin_l_bfgs_b',prior='ard',n_restarts_optimizer=10) #reduce n_restarts_optimizer to reduce runtime at the risk of a bad optimum
 model.fit(x_train,y_train)
 
-"""
-# GPY (Alternate GP package from https://github.com/SheffieldML/GPy)
-import GPy as gpy
-kernel = gpy.kern.RBF(x_train.shape[1],ARD=1) + gpy.kern.White(x_train.shape[1])
-model = gpy.models.GPRegression(x_train,y_train,kernel)
-"""
-
 ### Predict ###
-y_predict,y_error = model.predict(x_test)
+y_predict,y_error = model.predict(x_test,return_std=True)
 
 ### Plot test vs. predictions ###
 plotter.compare_output_timeseries(y_test,y_predict,y_error=y_error,display_rmse=True)
