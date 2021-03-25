@@ -27,7 +27,7 @@ def construct(time_series_data,x_columns,y_columns,number_of_lags,lag=1,forecast
     for i in range(max_lag-forecast_steps_ahead,len(time_series_data)-forecast_steps_ahead):
         x_vector = time_series_data[i-lags_expanded,x_columns_expanded.astype(int)]
         x.append(x_vector)
-        y_vector = time_series_data[i+forecast_steps_ahead,y_columns]
+        y_vector = time_series_data[i+forecast_steps_ahead-1,y_columns]
         y.append(y_vector)
 
     x = np.array(x)
