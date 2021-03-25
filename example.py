@@ -4,7 +4,7 @@ import edm.simple as edm
 from helpers import dataprep, plotter
 
 ### Load data ###
-data_original = np.loadtxt("examples/example_timeseries_l96_N10_F10.txt")[:500]
+data_original = np.loadtxt("datasets/timeseries_l96_N10_F10.txt")[:500]
 
 ### Normalize and log-transform if required ###
 data,mean,stdev = dataprep.normalize(data_original)
