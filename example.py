@@ -10,10 +10,10 @@ data_original = np.loadtxt("datasets/timeseries_l96_N10_F10.txt")[:500]
 data,mean,stdev = dataprep.normalize(data_original)
 
 ### Fit parameters ###
-x_columns = [0,1,2] #independent variables
+x_columns = [0,0,1] #independent variables
 y_columns = [0]     #dependent variables
-number_of_lags = [2,3,3] #number of time-lags for each independent variable
-lag = [1,1,1] #lag for each variable (or scalar for same lag across all variables)
+number_of_lags = [1,2,3] #number of time-lags for each independent variable
+lag = [0,1,1] #lag for each variable (or scalar for same lag across all variables) Note: Include 1 zero lag to include current data point. Else forecast ahead wouldn't be consistent.
 forecast_steps_ahead = 1 #number of time-steps ahead for forecasting
 test_fraction = 0.2 #fraction of data to be used to calculate out-of-sample error (can be set to zero to use all data for training)
 x_train,y_train,x_test,y_test = edm.construct(data,x_columns,y_columns,number_of_lags,lag,forecast_steps_ahead,test_fraction)
